@@ -11,24 +11,24 @@ var showConsole = true;
 setLoggerColorscheme();
 Logger.start();
 
-process.on('exit', function (code) {
+process.on('exit', function(code) {
     Logger.debug("process.exit(" + code + ")");
     Logger.shutdown();
 });
 
-process.on('uncaughtException', function (err) {
+process.on('uncaughtException', function(err) {
     Logger.fatal(err.stack);
     process.exit(1);
 });
 
-// Run MultiOgar-Edited
+// Run TripleOgar
 var gameServer = new GameServer();
-Logger.info("\u001B[1m\u001B[32mMultiOgar-Edited " + gameServer.version + "\u001B[37m - An open source multi-protocol ogar server\u001B[0m");
+Logger.info("\u001B[1m\u001B[32mTripleOgar " + gameServer.version + "\u001B[37m - An open source multi-protocol ogar server\u001B[0m");
 
 // Handle arguments
-process.argv.forEach(function (item) {
+process.argv.forEach(function(item) {
 
-    switch (item){
+    switch (item) {
         case "--help":
             console.log("Proper Usage: node index.js");
             console.log("    -n, --name             Set name");
@@ -82,30 +82,30 @@ process.argv.forEach(function (item) {
     }
 });
 
-function setLoggerColorscheme(){
-    if (process.argv.indexOf("-l") != -1
-        || process.argv.indexOf("--light-background") != -1) {
+function setLoggerColorscheme() {
+    if (process.argv.indexOf("-l") != -1 ||
+        process.argv.indexOf("--light-background") != -1) {
         Logger.setLightBackgroundColorscheme();
     }
 }
 
-function getValue(param){
+function getValue(param) {
     var ind = process.argv.indexOf(param);
-    var item  = process.argv[ind + 1]
-    if (!item || item.indexOf('-') != -1){
+    var item = process.argv[ind + 1]
+    if (!item || item.indexOf('-') != -1) {
         Logger.error("No value for " + param);
         return null;
-    } else{
+    } else {
         return item;
     }
 }
 
-function setParam(paramName, val){
-    if (!gameServer.config.hasOwnProperty(paramName)){
+function setParam(paramName, val) {
+    if (!gameServer.config.hasOwnProperty(paramName)) {
         Logger.error("Wrong parameter");
     }
     if (val || val === 0) {
-        if (typeof val === 'string'){
+        if (typeof val === 'string') {
             val = "'" + val + "'";
         }
         eval("gameServer.config." + paramName + "=" + val);
@@ -114,7 +114,7 @@ function setParam(paramName, val){
 
 
 gameServer.start();
-figlet(('MultiOgar-Edited  ' + gameServer.version), function(err, data) {
+figlet(('TripleOgar  ' + gameServer.version), function(err, data) {
     if (err) {
         console.log('Something went wrong...');
         console.dir(err);
@@ -136,7 +136,7 @@ if (showConsole) {
 // Console functions
 
 function prompt() {
-    in_.question(">", function (str) {
+    in_.question(">", function(str) {
         try {
             parseCommands(str);
         } catch (err) {

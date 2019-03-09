@@ -13,18 +13,18 @@ function Teams() {
     // Special
     this.teamAmount = 3; // Amount of teams. Having more than 3 teams will cause the leaderboard to work incorrectly (client issue).
     this.colors = [{
-            'r': 223,
-            'g': 0,
-            'b': 0
-        }, {
-            'r': 0,
-            'g': 223,
-            'b': 0
-        }, {
-            'r': 0,
-            'g': 0,
-            'b': 223
-        },]; // Make sure you add extra colors here if you wish to increase the team amount [Default colors are: Red, Green, Blue]
+        'r': 223,
+        'g': 0,
+        'b': 0
+    }, {
+        'r': 0,
+        'g': 223,
+        'b': 0
+    }, {
+        'r': 0,
+        'g': 0,
+        'b': 223
+    }, ]; // Make sure you add extra colors here if you wish to increase the team amount [Default colors are: Red, Green, Blue]
     this.nodes = []; // Teams
 }
 
@@ -33,12 +33,12 @@ Teams.prototype = new Mode();
 
 //Gamemode Specific Functions
 
-Teams.prototype.fuzzColorComponent = function (component) {
+Teams.prototype.fuzzColorComponent = function(component) {
     component += Math.random() * this.colorFuzziness >> 0;
     return component;
 };
 
-Teams.prototype.getTeamColor = function (team) {
+Teams.prototype.getTeamColor = function(team) {
     var color = this.colors[team];
     return {
         r: this.fuzzColorComponent(color.r),
@@ -49,14 +49,14 @@ Teams.prototype.getTeamColor = function (team) {
 
 // Override
 
-Teams.prototype.onPlayerSpawn = function (gameServer, player) {
+Teams.prototype.onPlayerSpawn = function(gameServer, player) {
     // Random color based on team
     player.color = this.getTeamColor(player.team);
     // Spawn player
     gameServer.spawnPlayer(player, gameServer.randomPos());
 };
 
-Teams.prototype.onServerInit = function (gameServer) {
+Teams.prototype.onServerInit = function(gameServer) {
     // Set up teams
     for (var i = 0; i < this.teamAmount; i++) {
         this.nodes[i] = [];
@@ -75,17 +75,17 @@ Teams.prototype.onServerInit = function (gameServer) {
     }
 };
 
-Teams.prototype.onPlayerInit = function (player) {
+Teams.prototype.onPlayerInit = function(player) {
     // Get random team
     player.team = Math.floor(Math.random() * this.teamAmount);
 };
 
-Teams.prototype.onCellAdd = function (cell) {
+Teams.prototype.onCellAdd = function(cell) {
     // Add to team list
     this.nodes[cell.owner.team].push(cell);
 };
 
-Teams.prototype.onCellRemove = function (cell) {
+Teams.prototype.onCellRemove = function(cell) {
     // Remove from team list
     var index = this.nodes[cell.owner.team].indexOf(cell);
     if (index != -1) {
@@ -93,7 +93,7 @@ Teams.prototype.onCellRemove = function (cell) {
     }
 };
 
-Teams.prototype.onCellMove = function (cell, gameServer) {
+Teams.prototype.onCellMove = function(cell, gameServer) {
     // Find team
     for (var i = 0; i < cell.owner.visibleNodes.length; i++) {
         // Only collide with player cells
@@ -115,7 +115,7 @@ Teams.prototype.onCellMove = function (cell, gameServer) {
     }
 };
 
-Teams.prototype.updateLB = function (gameServer) {
+Teams.prototype.updateLB = function(gameServer) {
     gameServer.leaderboardType = this.packetLB;
     var total = 0;
     var teamMass = [];

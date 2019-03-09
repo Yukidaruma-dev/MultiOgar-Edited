@@ -11,21 +11,21 @@ function HungerGames() {
     this.maxContenders = 12;
     this.baseSpawnPoints = [
         // Right side of map
-        {x: 4950,y:-2500},
-        {x: 4950,y:    0},
-        {x: 4950,y: 2500},
+        { x: 4950, y: -2500 },
+        { x: 4950, y: 0 },
+        { x: 4950, y: 2500 },
         // Left side of map
-        {x:-4950,y:-2500},
-        {x:-4950,y:    0},
-        {x:-4950,y: 2500},
+        { x: -4950, y: -2500 },
+        { x: -4950, y: 0 },
+        { x: -4950, y: 2500 },
         // Top of map
-        {x:-2500,y: 4950},
-        {x:    0,y: 4950},
-        {x: 2500,y: 4950},
+        { x: -2500, y: 4950 },
+        { x: 0, y: 4950 },
+        { x: 2500, y: 4950 },
         // Bottom of map
-        {x:-2500,y:-4950},
-        {x:    0,y:-4950},
-        {x: 2500,y:-4950},
+        { x: -2500, y: -4950 },
+        { x: 0, y: -4950 },
+        { x: 2500, y: -4950 },
     ];
     this.contenderSpawnPoints;
     this.borderDec = 100; // Border shrinks by this size everytime someone dies
@@ -36,7 +36,7 @@ HungerGames.prototype = new Tournament();
 
 // Gamemode Specific Functions
 
-HungerGames.prototype.getPos = function () {
+HungerGames.prototype.getPos = function() {
     var pos = {
         x: 0,
         y: 0
@@ -55,18 +55,18 @@ HungerGames.prototype.getPos = function () {
     };
 };
 
-HungerGames.prototype.spawnFood = function (gameServer, mass, pos) {
+HungerGames.prototype.spawnFood = function(gameServer, mass, pos) {
     var cell = new Entity.Food(gameServer, null, pos, mass);
     cell.color = gameServer.getRandomColor();
     gameServer.addNode(cell);
 };
 
-HungerGames.prototype.spawnVirus = function (gameServer, pos) {
+HungerGames.prototype.spawnVirus = function(gameServer, pos) {
     var v = new Entity.Virus(gameServer, null, pos, gameServer.config.virusMinSize);
     gameServer.addNode(v);
 };
 
-HungerGames.prototype.onPlayerDeath = function (gameServer) {
+HungerGames.prototype.onPlayerDeath = function(gameServer) {
     gameServer.setBorder(
         gameServer.border.width - this.borderDec * 2,
         gameServer.border.height - this.borderDec * 2
@@ -100,7 +100,7 @@ HungerGames.prototype.onPlayerDeath = function (gameServer) {
 
 // Override
 
-HungerGames.prototype.onServerInit = function (gameServer) {
+HungerGames.prototype.onServerInit = function(gameServer) {
     // Prepare
     this.prepare(gameServer);
 
@@ -128,46 +128,46 @@ HungerGames.prototype.onServerInit = function (gameServer) {
         gameServer.border.height
     );
     // 200 mass food
-    this.spawnFood(gameServer,200,{x: 0, y: 0});
+    this.spawnFood(gameServer, 200, { x: 0, y: 0 });
     // 80 mass food
-    this.spawnFood(gameServer,90,{x:  810, y: 810});
-    this.spawnFood(gameServer,90,{x:  810, y:-810});
-    this.spawnFood(gameServer,90,{x: -810, y: 810});
-    this.spawnFood(gameServer,90,{x: -810, y:-810});
+    this.spawnFood(gameServer, 90, { x: 810, y: 810 });
+    this.spawnFood(gameServer, 90, { x: 810, y: -810 });
+    this.spawnFood(gameServer, 90, { x: -810, y: 810 });
+    this.spawnFood(gameServer, 90, { x: -810, y: -810 });
     // 50 mass food
-    this.spawnFood(gameServer,71,{x:   0, y: 1620});
-    this.spawnFood(gameServer,71,{x:   0, y:-1620});
-    this.spawnFood(gameServer,71,{x: 1620, y:   0});
-    this.spawnFood(gameServer,71,{x:-1620, y:   0});
+    this.spawnFood(gameServer, 71, { x: 0, y: 1620 });
+    this.spawnFood(gameServer, 71, { x: 0, y: -1620 });
+    this.spawnFood(gameServer, 71, { x: 1620, y: 0 });
+    this.spawnFood(gameServer, 71, { x: -1620, y: 0 });
     // 30 mass food
-    this.spawnFood(gameServer,55,{x: 1620, y: 810});
-    this.spawnFood(gameServer,55,{x: 1620, y:-810});
-    this.spawnFood(gameServer,55,{x:-1620, y: 810});
-    this.spawnFood(gameServer,55,{x:-1620, y:-810});
-    this.spawnFood(gameServer,55,{x: 810, y: 1620});
-    this.spawnFood(gameServer,55,{x: 810, y:-1620});
-    this.spawnFood(gameServer,55,{x:-810, y: 1620});
-    this.spawnFood(gameServer,55,{x:-810, y:-1620});
+    this.spawnFood(gameServer, 55, { x: 1620, y: 810 });
+    this.spawnFood(gameServer, 55, { x: 1620, y: -810 });
+    this.spawnFood(gameServer, 55, { x: -1620, y: 810 });
+    this.spawnFood(gameServer, 55, { x: -1620, y: -810 });
+    this.spawnFood(gameServer, 55, { x: 810, y: 1620 });
+    this.spawnFood(gameServer, 55, { x: 810, y: -1620 });
+    this.spawnFood(gameServer, 55, { x: -810, y: 1620 });
+    this.spawnFood(gameServer, 55, { x: -810, y: -1620 });
     // Viruses
-    this.spawnVirus(gameServer,{x:     0, y: 810});
-    this.spawnVirus(gameServer,{x:     0, y:-810});
-    this.spawnVirus(gameServer,{x:   810, y:   0});
-    this.spawnVirus(gameServer,{x:  -810, y:   0});
-    this.spawnVirus(gameServer,{x: 1620, y: 1620});
-    this.spawnVirus(gameServer,{x: 1620, y:-1620});
-    this.spawnVirus(gameServer,{x:-1620, y: 1620});
-    this.spawnVirus(gameServer,{x:-1620, y:-1620});
-    this.spawnVirus(gameServer,{x:  810, y: 2430});
-    this.spawnVirus(gameServer,{x:  810, y:-2430});
-    this.spawnVirus(gameServer,{x: -810, y:-2430});
-    this.spawnVirus(gameServer,{x: -810, y: 2430});
-    this.spawnVirus(gameServer,{x:  2430, y: 810});
-    this.spawnVirus(gameServer,{x:  2430, y:-810});
-    this.spawnVirus(gameServer,{x: -2430, y:-810});
-    this.spawnVirus(gameServer,{x: -2430, y: 810});
+    this.spawnVirus(gameServer, { x: 0, y: 810 });
+    this.spawnVirus(gameServer, { x: 0, y: -810 });
+    this.spawnVirus(gameServer, { x: 810, y: 0 });
+    this.spawnVirus(gameServer, { x: -810, y: 0 });
+    this.spawnVirus(gameServer, { x: 1620, y: 1620 });
+    this.spawnVirus(gameServer, { x: 1620, y: -1620 });
+    this.spawnVirus(gameServer, { x: -1620, y: 1620 });
+    this.spawnVirus(gameServer, { x: -1620, y: -1620 });
+    this.spawnVirus(gameServer, { x: 810, y: 2430 });
+    this.spawnVirus(gameServer, { x: 810, y: -2430 });
+    this.spawnVirus(gameServer, { x: -810, y: -2430 });
+    this.spawnVirus(gameServer, { x: -810, y: 2430 });
+    this.spawnVirus(gameServer, { x: 2430, y: 810 });
+    this.spawnVirus(gameServer, { x: 2430, y: -810 });
+    this.spawnVirus(gameServer, { x: -2430, y: -810 });
+    this.spawnVirus(gameServer, { x: -2430, y: 810 });
 };
 
-HungerGames.prototype.onPlayerSpawn = function (gameServer, player) {
+HungerGames.prototype.onPlayerSpawn = function(gameServer, player) {
     // Only spawn players if the game hasnt started yet
     if ((this.gamePhase == 0) && (this.contenders.length < this.maxContenders)) {
         player.color = gameServer.getRandomColor(); // Random color

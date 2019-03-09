@@ -23,7 +23,7 @@ function PacketHandler(gameServer, socket) {
 
 module.exports = PacketHandler;
 
-PacketHandler.prototype.handleMessage = function (message) {
+PacketHandler.prototype.handleMessage = function(message) {
     if (!this.handler.hasOwnProperty(message[0]))
         return;
 
@@ -31,7 +31,7 @@ PacketHandler.prototype.handleMessage = function (message) {
     this.socket.lastAliveTime = this.gameServer.stepDateTime;
 };
 
-PacketHandler.prototype.handshake_onProtocol = function (message) {
+PacketHandler.prototype.handshake_onProtocol = function(message) {
     if (message.length !== 5) return;
     this.handshakeProtocol = message[1] | (message[2] << 8) | (message[3] << 16) | (message[4] << 24);
     if (this.handshakeProtocol < 1 || this.handshakeProtocol > 18) {
@@ -43,7 +43,7 @@ PacketHandler.prototype.handshake_onProtocol = function (message) {
     };
 };
 
-PacketHandler.prototype.handshake_onKey = function (message) {
+PacketHandler.prototype.handshake_onKey = function(message) {
     if (message.length !== 5) return;
     this.handshakeKey = message[1] | (message[2] << 8) | (message[3] << 16) | (message[4] << 24);
     if (this.handshakeProtocol > 6 && this.handshakeKey !== 0) {
@@ -53,7 +53,7 @@ PacketHandler.prototype.handshake_onKey = function (message) {
     this.handshake_onCompleted(this.handshakeProtocol, this.handshakeKey);
 };
 
-PacketHandler.prototype.handshake_onCompleted = function (protocol, key) {
+PacketHandler.prototype.handshake_onCompleted = function(protocol, key) {
     this.handler = {
         0: this.message_onJoin.bind(this),
         1: this.message_onSpectate.bind(this),
@@ -85,7 +85,7 @@ PacketHandler.prototype.handshake_onCompleted = function (protocol, key) {
 };
 
 
-PacketHandler.prototype.message_onJoin = function (message) {
+PacketHandler.prototype.message_onJoin = function(message) {
     var tick = this.gameServer.tickCounter;
     var dt = tick - this.lastJoinTick;
     this.lastJoinTick = tick;
@@ -102,21 +102,21 @@ PacketHandler.prototype.message_onJoin = function (message) {
     this.setNickname(text);
 };
 
-PacketHandler.prototype.message_onSpectate = function (message) {
+PacketHandler.prototype.message_onSpectate = function(message) {
     if (message.length !== 1 || this.socket.playerTracker.cells.length !== 0) {
         return;
     }
     this.socket.playerTracker.spectate = true;
 };
 
-PacketHandler.prototype.message_onMouse = function (message) {
+PacketHandler.prototype.message_onMouse = function(message) {
     if (message.length !== 13 && message.length !== 9 && message.length !== 21) {
         return;
     }
     this.mouseData = Buffer.concat([message]);
 };
 
-PacketHandler.prototype.message_onKeySpace = function (message) {
+PacketHandler.prototype.message_onKeySpace = function(message) {
     if (this.socket.playerTracker.miQ) {
         this.socket.playerTracker.minionSplit = true;
     } else {
@@ -124,7 +124,7 @@ PacketHandler.prototype.message_onKeySpace = function (message) {
     }
 };
 
-PacketHandler.prototype.message_onKeyQ = function (message) {
+PacketHandler.prototype.message_onKeyQ = function(message) {
     if (message.length !== 1) return;
     var tick = this.gameServer.tickCoutner;
     var dt = tick - this.lastQTick;
@@ -139,7 +139,7 @@ PacketHandler.prototype.message_onKeyQ = function (message) {
     }
 };
 
-PacketHandler.prototype.message_onKeyW = function (message) {
+PacketHandler.prototype.message_onKeyW = function(message) {
     if (message.length !== 1) return;
     if (this.socket.playerTracker.miQ) {
         this.socket.playerTracker.minionEject = true;
@@ -148,29 +148,29 @@ PacketHandler.prototype.message_onKeyW = function (message) {
     }
 };
 
-PacketHandler.prototype.message_onKeyE = function (message) {
+PacketHandler.prototype.message_onKeyE = function(message) {
     if (this.gameServer.config.disableERTP) return;
     this.socket.playerTracker.minionSplit = true;
 };
 
-PacketHandler.prototype.message_onKeyR = function (message) {
+PacketHandler.prototype.message_onKeyR = function(message) {
     if (this.gameServer.config.disableERTP) return;
     this.socket.playerTracker.minionEject = true;
 };
 
-PacketHandler.prototype.message_onKeyT = function (message) {
+PacketHandler.prototype.message_onKeyT = function(message) {
     if (this.gameServer.config.disableERTP) return;
     this.socket.playerTracker.minionFrozen = !this.socket.playerTracker.minionFrozen;
 };
 
-PacketHandler.prototype.message_onKeyP = function (message) {
+PacketHandler.prototype.message_onKeyP = function(message) {
     if (this.gameServer.config.disableERTP) return;
     if (this.gameServer.config.collectPellets) {
         this.socket.playerTracker.collectPellets = !this.socket.playerTracker.collectPellets;
     }
 };
 
-PacketHandler.prototype.message_onChat = function (message) {
+PacketHandler.prototype.message_onChat = function(message) {
     if (message.length < 3) return;
     var tick = this.gameServer.tickCounter;
     var dt = tick - this.lastChatTick;
@@ -179,13 +179,13 @@ PacketHandler.prototype.message_onChat = function (message) {
         return;
     }
 
-    var flags = message[1];    // flags
-    var rvLength = (flags & 2 ? 4:0) + (flags & 4 ? 8:0) + (flags & 8 ? 16:0);
+    var flags = message[1]; // flags
+    var rvLength = (flags & 2 ? 4 : 0) + (flags & 4 ? 8 : 0) + (flags & 8 ? 16 : 0);
     if (message.length < 3 + rvLength) // second validation
         return;
 
     var reader = new BinaryReader(message);
-    reader.skipBytes(2 + rvLength);     // reserved
+    reader.skipBytes(2 + rvLength); // reserved
     var text = null;
     if (this.protocol < 6)
         text = reader.readStringZeroUnicode();
@@ -194,7 +194,7 @@ PacketHandler.prototype.message_onChat = function (message) {
     this.gameServer.onChatMessage(this.socket.playerTracker, null, text);
 };
 
-PacketHandler.prototype.message_onStat = function (message) {
+PacketHandler.prototype.message_onStat = function(message) {
     if (message.length !== 1) return;
     var tick = this.gameServer.tickCounter;
     var dt = tick - this.lastStatTick;
@@ -205,7 +205,7 @@ PacketHandler.prototype.message_onStat = function (message) {
     this.sendPacket(new Packet.ServerStat(this.socket.playerTracker));
 };
 
-PacketHandler.prototype.processMouse = function () {
+PacketHandler.prototype.processMouse = function() {
     if (this.mouseData == null) return;
     var client = this.socket.playerTracker;
     var reader = new BinaryReader(this.mouseData);
@@ -226,7 +226,7 @@ PacketHandler.prototype.processMouse = function () {
     this.mouseData = null;
 };
 
-PacketHandler.prototype.process = function () {
+PacketHandler.prototype.process = function() {
     if (this.pressSpace) { // Split cell
         this.socket.playerTracker.pressSpace();
         this.pressSpace = false;
@@ -248,12 +248,12 @@ PacketHandler.prototype.process = function () {
     this.processMouse();
 };
 
-PacketHandler.prototype.getRandomSkin = function () {
+PacketHandler.prototype.getRandomSkin = function() {
     var randomSkins = [];
     var fs = require("fs");
     if (fs.existsSync("../src/randomskins.txt")) {
         // Read and parse the Skins - filter out whitespace-only Skins
-        randomSkins = fs.readFileSync("../src/randomskins.txt", "utf8").split(/[\r\n]+/).filter(function (x) {
+        randomSkins = fs.readFileSync("../src/randomskins.txt", "utf8").split(/[\r\n]+/).filter(function(x) {
             return x != ''; // filter empty Skins
         });
     }
@@ -265,7 +265,7 @@ PacketHandler.prototype.getRandomSkin = function () {
     return rSkin;
 };
 
-PacketHandler.prototype.setNickname = function (text) {
+PacketHandler.prototype.setNickname = function(text) {
     var name = "",
         skin = null;
     if (text != null && text.length > 0) {

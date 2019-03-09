@@ -9,11 +9,11 @@ module.exports = FakeSocket;
 
 // Override
 
-FakeSocket.prototype.sendPacket = function (packet) {
+FakeSocket.prototype.sendPacket = function(packet) {
     // Fakes sending a packet
     return;
 };
 
-FakeSocket.prototype.close = function (error) {
+FakeSocket.prototype.close = function(error) {
     this.isCloseRequest = true;
 };

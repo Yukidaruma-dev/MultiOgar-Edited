@@ -16,9 +16,9 @@ UpdateLeaderboard.prototype.build = function(protocol) {
             else return this.buildUserText14();
         case 49:
             // FFA
-            if      (protocol < 6 ) return this.buildFfa5();
+            if (protocol < 6) return this.buildFfa5();
             else if (protocol < 11) return this.buildFfa6();
-            else                    return this.buildFfa(protocol); // 13/14
+            else return this.buildFfa(protocol); // 13/14
         case 50:
             // Team
             return this.buildTeam();
@@ -39,7 +39,7 @@ UpdateLeaderboard.prototype.buildUserText = function(protocol) {
     return writer.toBuffer();
 };
 // User text 14
-UpdateLeaderboard.prototype.buildUserText14 = function () {
+UpdateLeaderboard.prototype.buildUserText14 = function() {
     var writer = new BinaryWriter();
     writer.writeUInt8(0x35);
     for (var i = 0; i < this.leaderboard.length; i++) {
@@ -100,8 +100,8 @@ UpdateLeaderboard.prototype.buildFfa11 = function() {
 // FFA protocol 13/14
 UpdateLeaderboard.prototype.buildFfa = function(protocol) {
     var writer = new BinaryWriter();
-    if   (protocol < 14) writer.writeUInt8(0x33); // 13
-    else                 writer.writeUInt8(0x35); // 14
+    if (protocol < 14) writer.writeUInt8(0x33); // 13
+    else writer.writeUInt8(0x35); // 14
     for (var i = 0; i < this.leaderboardCount; i++) {
         var item = this.leaderboard[i];
         if (item == null) return null; // bad leaderboard just don't send it

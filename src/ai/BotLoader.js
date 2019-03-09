@@ -9,7 +9,7 @@ function BotLoader(gameServer) {
 
 module.exports = BotLoader;
 
-BotLoader.prototype.getName = function () {
+BotLoader.prototype.getName = function() {
     var name = "";
 
     // Picks a random name for the bot
@@ -23,20 +23,20 @@ BotLoader.prototype.getName = function () {
     return name;
 };
 
-BotLoader.prototype.loadNames = function () {
+BotLoader.prototype.loadNames = function() {
     this.randomNames = [];
     var fs = require("fs");
 
     if (fs.existsSync("../src/ai/BotNames.txt")) {
         // Read and parse the names - filter out whitespace-only names
-        this.randomNames = fs.readFileSync("../src/ai/BotNames.txt", "utf8").split(/[\r\n]+/).filter(function (x) {
+        this.randomNames = fs.readFileSync("../src/ai/BotNames.txt", "utf8").split(/[\r\n]+/).filter(function(x) {
             return x != ''; // filter empty names
         });
     }
     this.nameIndex = 0;
 };
 
-BotLoader.prototype.addBot = function () {
+BotLoader.prototype.addBot = function() {
     var BotPlayer = require('./BotPlayer');
     var s = new FakeSocket(this.gameServer);
     s.playerTracker = new BotPlayer(this.gameServer, s);

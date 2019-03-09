@@ -1,4 +1,12 @@
 # Changelog
+#### 1.7.0:
+* Fixed some code;
+* Deleted some code;
+* Changeed some code;
+* Deleted some files;
+* Cleaned a bit;
+
+-------------
 #### 1.6.1:
 * Cleaned a bit of CommandList, thanks to @AlexHGaming;
 * Added botnames and removed unrealistic ones, thanks to @AlexHGaming;

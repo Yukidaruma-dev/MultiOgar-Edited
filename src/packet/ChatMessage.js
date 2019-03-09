@@ -5,7 +5,7 @@ function ChatMessage(sender, message) {
 
 module.exports = ChatMessage;
 
-ChatMessage.prototype.build = function (protocol) {
+ChatMessage.prototype.build = function(protocol) {
     var text = this.message;
     if (text == null) text = "";
     var name = "SERVER";
@@ -25,16 +25,16 @@ ChatMessage.prototype.build = function (protocol) {
     var UserRoleEnum = require("../enum/UserRoleEnum");
     var BinaryWriter = require("./BinaryWriter");
     var writer = new BinaryWriter();
-    writer.writeUInt8(0x63);            // message id (decimal 99)
+    writer.writeUInt8(0x63); // message id (decimal 99)
 
     // flags
     var flags = 0;
     if (this.sender == null)
-        flags = 0x80;           // server message
+        flags = 0x80; // server message
     else if (this.sender.userRole == UserRoleEnum.ADMIN)
-        flags = 0x40;           // admin message
+        flags = 0x40; // admin message
     else if (this.sender.userRole == UserRoleEnum.MODER)
-        flags = 0x20;           // moder message
+        flags = 0x20; // moder message
 
     writer.writeUInt8(flags);
     writer.writeUInt8(color.r >> 0);

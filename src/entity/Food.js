@@ -11,11 +11,11 @@ Food.prototype = new Cell();
 
 // Main Functions
 
-Food.prototype.onAdd = function (gameServer) {
+Food.prototype.onAdd = function(gameServer) {
     gameServer.nodesFood.push(this);
 };
 
-Food.prototype.onRemove = function (gameServer) {
+Food.prototype.onRemove = function(gameServer) {
     // Remove from list of foods
     var index = gameServer.nodesFood.indexOf(this);
     if (index != -1) {

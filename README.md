@@ -1,4 +1,4 @@
-# MultiOgar-Edited
+# TripleOgar
 
 [![Discord](https://discordapp.com/api/guilds/407210435721560065/embed.png?style=banner2)](https://discord.gg/66X2ESb)
 
@@ -9,7 +9,7 @@ Since August of 2016, [Barbosik](https://github.com/Barbosik) has stopped workin
 >---
 
 # Information
-Current version : **1.6.1**
+Current version : **1.7.0**
 
 ![Language](https://img.shields.io/badge/language-node.js-yellow.svg)
 [![License](https://img.shields.io/badge/license-APACHE2-blue.svg)](https://github.com/Barbosik/OgarMulti/blob/master/LICENSE.md)
@@ -25,7 +25,7 @@ MultiOgar-Edited code however, is based on MultiOgar code that has been heavily 
 
 1. Download and install node.js: https://nodejs.org/en/download/
 2. Download this repo
-3. Unzip MultiOgar-Edited code into some folder.
+3. Unzip TripleOgar code into some folder.
 4. Run the win-Install_Dep.bat file.
 5. Run win-Start.bat
 
@@ -44,21 +44,21 @@ node index.js
 ```
 
 ## Linux:
+
+Install node.js:
+![Node.js Package Manager]https://nodejs.org/ja/download/package-manager/
 ```bash
 # First update your packages:
-sudo apt-get update
+sudo apt update
 
 # Install git:
 sudo apt-get install git
 
-# Install node.js:
-sudo apt-get install nodejs-legacy npm
-
-# Clone MultiOgar-Edited:
-git clone git://github.com/Megabyte918/MultiOgar-Edited.git
+# Clone TripleOgar:
+git clone git://github.com/Yukidaruma-dev/TripleOgar.git
 
 # Install dependencies:
-cd MultiOgar-Edited
+cd TripleOgar
 npm install
 
 # Run the server:
@@ -74,7 +74,7 @@ sudo node index.js
 
 ### Before you create your issue you ***MUST*** follow these rules:
 
-1. **The issue is in written in English.**
+1. **The issue is in written in English or Japanese.**
 2. **The issue is directly related to the project.**
 3. **Your issue is not a duplicate of a previous issue.**
 4. **Descriptive information must be provided, so that we can reproduce the error you are experiencing**
@@ -114,14 +114,3 @@ Please read through [this guide](https://guides.github.com/features/mastering-ma
 >>* CPU load: 24% (x2 cores)
 >>* Memory usage: 35 MB
 >>* MS response time: Minimum of around 45
-
-
-
-# Discord Bot Support
-
-If you would like to allow a moderator to get direct access to your server's commands, you may want to set up a Discord bot on your server.
-
-The setup is very simple, all you need is a Discord App Token and a role on your server.
-Both can be specified in the config within the file.
-
-After this is complete just run the `console-discord.js` file in the `run` folder and your server will start along with the bot.

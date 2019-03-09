@@ -4,7 +4,7 @@ function ServerStat(playerTracker) {
 
 module.exports = ServerStat;
 
-ServerStat.prototype.build = function (protocol) {
+ServerStat.prototype.build = function(protocol) {
     var gameServer = this.playerTracker.gameServer;
     // Get server statistics
     var totalPlayers = 0;
@@ -34,7 +34,7 @@ ServerStat.prototype.build = function (protocol) {
     // Serialize
     var BinaryWriter = require("./BinaryWriter");
     var writer = new BinaryWriter();
-    writer.writeUInt8(254);             // Message Id
-    writer.writeStringZeroUtf8(json);   // JSON
+    writer.writeUInt8(254); // Message Id
+    writer.writeStringZeroUtf8(json); // JSON
     return writer.toBuffer();
 };

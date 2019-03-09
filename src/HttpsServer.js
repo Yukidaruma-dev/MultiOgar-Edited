@@ -41,7 +41,7 @@ function Server(tlsconfig, requestListener) {
 }
 inherits(Server, https.Server);
 
-Server.prototype.setTimeout = function (msecs, callback) {
+Server.prototype.setTimeout = function(msecs, callback) {
     this.timeout = msecs;
     if (callback)
         this.on('timeout', callback);
@@ -51,13 +51,13 @@ Server.prototype.__httpSocketHandler = httpSocketHandler;
 
 var connectionListener;
 if (isOldNode) {
-    connectionListener = function (socket) {
+    connectionListener = function(socket) {
         var logip = socket.remoteAddress + ":" + socket.remotePort;
-        socket.on('error', function (err) {
+        socket.on('error', function(err) {
             Logger.writeError("[" + logip + "] " + err.stack);
         });
         var self = this;
-        socket.ondata = function (d, start, end) {
+        socket.ondata = function(d, start, end) {
             var firstByte = d[start];
             if (firstByte < 32 || firstByte >= 127) {
                 // tls/ssl
@@ -71,15 +71,15 @@ if (isOldNode) {
         };
     };
 } else {
-    connectionListener = function (socket) {
+    connectionListener = function(socket) {
         var logip = socket.remoteAddress + ":" + socket.remotePort;
-        socket.on('error', function (err) {
+        socket.on('error', function(err) {
             Logger.writeError("[" + logip + "] " + err.stack);
         });
         var self = this;
         var data = socket.read(1);
         if (data === null) {
-            socket.once('readable', function () {
+            socket.once('readable', function() {
                 self._connListener(socket);
             });
         } else {
@@ -96,6 +96,6 @@ if (isOldNode) {
 
 exports.Server = Server;
 
-exports.createServer = function (tlsconfig, requestListener) {
+exports.createServer = function(tlsconfig, requestListener) {
     return new Server(tlsconfig, requestListener);
 };

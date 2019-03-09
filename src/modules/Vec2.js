@@ -47,7 +47,7 @@ Vec2.prototype.sqDist = function() {
 };
 
 Vec2.prototype.normalize = function() {
-    return this.scale(1/this.sqDist());
+    return this.scale(1 / this.sqDist());
 };
 
 Vec2.prototype.scale = function(scaleX, scaleY) {

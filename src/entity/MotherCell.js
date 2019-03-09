@@ -7,9 +7,9 @@ function MotherCell() {
 
     this.cellType = 2;
     this.isSpiked = true;
-    this.isMotherCell = true;       // Not to confuse bots
+    this.isMotherCell = true; // Not to confuse bots
     this.color = { r: 0xce, g: 0x63, b: 0x63 };
-    this.motherCellMinSize = 149;   // vanilla 149 (mass = 149*149/100 = 222.01)
+    this.motherCellMinSize = 149; // vanilla 149 (mass = 149*149/100 = 222.01)
     this.motherCellSpawnAmount = 2;
     if (!this._size) {
         this.setSize(this.motherCellMinSize);
@@ -23,15 +23,15 @@ MotherCell.prototype = new Cell();
 MotherCell.prototype.onEaten = Virus.prototype.onEaten; // Copies the onEaten function
 MotherCell.prototype.explodeCell = Virus.prototype.explodeCell; // Copied the explodeCell function
 
-MotherCell.prototype.canEat = function (cell) {
+MotherCell.prototype.canEat = function(cell) {
     var maxMass = this.gameServer.config.motherCellMaxMass;
     if (maxMass && this._mass >= maxMass) return false;
-    return cell.cellType == 0 ||  // can eat player cell
-           cell.cellType == 2 ||  // can eat virus
-           cell.cellType == 3;    // can eat ejected mass
+    return cell.cellType == 0 || // can eat player cell
+        cell.cellType == 2 || // can eat virus
+        cell.cellType == 3; // can eat ejected mass
 };
 
-MotherCell.prototype.onUpdate = function () {
+MotherCell.prototype.onUpdate = function() {
     var maxFood = this.gameServer.config.foodMaxAmount;
     if (this.gameServer.nodesFood.length >= maxFood) {
         return;
@@ -65,8 +65,6 @@ MotherCell.prototype.onUpdate = function () {
     this.gameServer.updateNodeQuad(this);
 };
 
-MotherCell.prototype.onAdd = function () {
-};
+MotherCell.prototype.onAdd = function() {};
 
-MotherCell.prototype.onRemove = function () {
-};
+MotherCell.prototype.onRemove = function() {};

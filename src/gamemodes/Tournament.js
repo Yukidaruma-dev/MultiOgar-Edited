@@ -30,31 +30,31 @@ Tournament.prototype = new Mode();
 
 // Gamemode Specific Functions
 
-Tournament.prototype.startGamePrep = function (gameServer) {
+Tournament.prototype.startGamePrep = function(gameServer) {
     this.gamePhase = 1;
     this.timer = this.prepTime; // 10 seconds
 };
 
-Tournament.prototype.startGame = function (gameServer) {
+Tournament.prototype.startGame = function(gameServer) {
     gameServer.run = true;
     this.gamePhase = 2;
     this.getSpectate(); // Gets a random person to spectate
     gameServer.config.playerDisconnectTime = this.dcTime; // Reset config
 };
 
-Tournament.prototype.endGame = function (gameServer) {
+Tournament.prototype.endGame = function(gameServer) {
     this.winner = this.contenders[0];
     this.gamePhase = 3;
     this.timer = this.endTime; // 30 Seconds
 };
 
-Tournament.prototype.endGameTimeout = function (gameServer) {
+Tournament.prototype.endGameTimeout = function(gameServer) {
     gameServer.run = false;
     this.gamePhase = 4;
     this.timer = this.endTime; // 30 Seconds
 };
 
-Tournament.prototype.fillBots = function (gameServer) {
+Tournament.prototype.fillBots = function(gameServer) {
     // Fills the server with bots if there arent enough players
     var fill = this.maxContenders - this.contenders.length;
     for (var i = 0; i < fill; i++) {
@@ -62,13 +62,13 @@ Tournament.prototype.fillBots = function (gameServer) {
     }
 };
 
-Tournament.prototype.getSpectate = function () {
+Tournament.prototype.getSpectate = function() {
     // Finds a random person to spectate
     var index = Math.floor(Math.random() * this.contenders.length);
     this.rankOne = this.contenders[index];
 };
 
-Tournament.prototype.prepare = function (gameServer) {
+Tournament.prototype.prepare = function(gameServer) {
     // Remove all cells
     var len = gameServer.nodes.length;
     for (var i = 0; i < len; i++) {
@@ -112,11 +112,11 @@ Tournament.prototype.prepare = function (gameServer) {
     this.timeLimit = gameServer.config.tourneyTimeLimit * 60; // in seconds
 };
 
-Tournament.prototype.onPlayerDeath = function (gameServer) {
+Tournament.prototype.onPlayerDeath = function(gameServer) {
     // Nothing
 };
 
-Tournament.prototype.formatTime = function (time) {
+Tournament.prototype.formatTime = function(time) {
     if (time < 0) {
         return "0:00";
     }
@@ -129,11 +129,11 @@ Tournament.prototype.formatTime = function (time) {
 
 // Override
 
-Tournament.prototype.onServerInit = function (gameServer) {
+Tournament.prototype.onServerInit = function(gameServer) {
     this.prepare(gameServer);
 };
 
-Tournament.prototype.onPlayerSpawn = function (gameServer, player) {
+Tournament.prototype.onPlayerSpawn = function(gameServer, player) {
     // Only spawn players if the game hasnt started yet
     if ((this.gamePhase == 0) && (this.contenders.length < this.maxContenders)) {
         player.color = gameServer.getRandomColor(); // Random color
@@ -147,7 +147,7 @@ Tournament.prototype.onPlayerSpawn = function (gameServer, player) {
     }
 };
 
-Tournament.prototype.onCellRemove = function (cell) {
+Tournament.prototype.onCellRemove = function(cell) {
     var owner = cell.owner,
         human_just_died = false;
 
@@ -182,7 +182,7 @@ Tournament.prototype.onCellRemove = function (cell) {
     }
 };
 
-Tournament.prototype.updateLB_FFA = function (gameServer, lb) {
+Tournament.prototype.updateLB_FFA = function(gameServer, lb) {
     gameServer.leaderboardType = 49;
     for (var i = 0, pos = 0; i < gameServer.clients.length; i++) {
         var player = gameServer.clients[i].playerTracker;
@@ -199,7 +199,7 @@ Tournament.prototype.updateLB_FFA = function (gameServer, lb) {
     this.rankOne = lb[0];
 };
 
-Tournament.prototype.updateLB = function (gameServer, lb) {
+Tournament.prototype.updateLB = function(gameServer, lb) {
     gameServer.leaderboardType = this.packetLB;
     switch (this.gamePhase) {
         case 0:

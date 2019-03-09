@@ -11,12 +11,12 @@ EjectedMass.prototype = new Cell();
 
 // Main Functions
 
-EjectedMass.prototype.onAdd = function (gameServer) {
+EjectedMass.prototype.onAdd = function(gameServer) {
     // Add to list of ejected mass
     gameServer.nodesEjected.push(this);
 };
 
-EjectedMass.prototype.onRemove = function (gameServer) {
+EjectedMass.prototype.onRemove = function(gameServer) {
     // Remove from list of ejected mass
     var index = gameServer.nodesEjected.indexOf(this);
     if (index != -1) {

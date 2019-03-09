@@ -7,7 +7,7 @@ function SetBorder(playerTracker, border, gameType, serverName) {
 
 module.exports = SetBorder;
 
-SetBorder.prototype.build = function (protocol) {
+SetBorder.prototype.build = function(protocol) {
     var scrambleX = this.playerTracker.scrambleX;
     var scrambleY = this.playerTracker.scrambleY;
     if (this.gameType == null) {
@@ -21,7 +21,7 @@ SetBorder.prototype.build = function (protocol) {
     }
     var BinaryWriter = require("./BinaryWriter");
     var writer = new BinaryWriter();
-    writer.writeUInt8(0x40);                                // Packet ID
+    writer.writeUInt8(0x40); // Packet ID
     writer.writeDouble(this.border.minx + scrambleX);
     writer.writeDouble(this.border.miny + scrambleY);
     writer.writeDouble(this.border.maxx + scrambleX);

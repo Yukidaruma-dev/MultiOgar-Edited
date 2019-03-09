@@ -40,7 +40,9 @@ Virus.prototype.onEaten = function(cell) {
     var cellsLeft = (config.virusMaxCells || config.playerMaxCells) - cell.owner.cells.length;
     if (cellsLeft <= 0) return;
     var splitMin = config.virusMaxPoppedSize * config.virusMaxPoppedSize / 100;
-    var cellMass = cell._mass, splits = [], splitCount, splitMass;
+    var cellMass = cell._mass,
+        splits = [],
+        splitCount, splitMass;
 
     if (config.virusEqualPopSize) {
         // definite monotone splits

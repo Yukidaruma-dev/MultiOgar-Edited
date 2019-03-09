@@ -9,16 +9,16 @@ module.exports = BotPlayer;
 BotPlayer.prototype = new PlayerTracker();
 
 
-BotPlayer.prototype.largest = function (list) {
+BotPlayer.prototype.largest = function(list) {
     // Sort the cells by Array.sort() function to avoid errors
     var sorted = list.valueOf();
-    sorted.sort(function (a, b) {
+    sorted.sort(function(a, b) {
         return b._size - a._size;
     });
     return sorted[0];
 };
 
-BotPlayer.prototype.checkConnection = function () {
+BotPlayer.prototype.checkConnection = function() {
     if (this.socket.isCloseRequest) {
         while (this.cells.length) {
             this.gameServer.removeNode(this.cells[0]);
@@ -31,13 +31,13 @@ BotPlayer.prototype.checkConnection = function () {
         this.gameServer.gameMode.onPlayerSpawn(this.gameServer, this);
 };
 
-BotPlayer.prototype.sendUpdate = function () {
+BotPlayer.prototype.sendUpdate = function() {
     if (this.splitCooldown) this.splitCooldown--;
     this.decide(this.largest(this.cells)); // Action
 };
 
 // Custom
-BotPlayer.prototype.decide = function (cell) {
+BotPlayer.prototype.decide = function(cell) {
     if (!cell) return; // Cell was eaten, check in the next tick (I'm too lazy)
     var result = new Vec2(0, 0); // For splitting
 
@@ -104,8 +104,8 @@ BotPlayer.prototype.decide = function (cell) {
         influence /= distance;
 
         // Splitting conditions
-        if (check.cellType == 0 && cell._size > check._size * 1.15
-            && !this.splitCooldown && this.cells.length < 8 &&
+        if (check.cellType == 0 && cell._size > check._size * 1.15 &&
+            !this.splitCooldown && this.cells.length < 8 &&
             820 - cell._size / 2 - check._size >= distance) {
             // Splitkill the target
             this.splitCooldown = 15;

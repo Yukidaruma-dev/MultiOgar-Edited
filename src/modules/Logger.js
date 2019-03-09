@@ -24,22 +24,22 @@ module.exports.writeDebug = writeDebug;
 module.exports.writeError = writeError;
 module.exports.start = start;
 module.exports.shutdown = shutdown;
-module.exports.setVerbosity = function (level) {
+module.exports.setVerbosity = function(level) {
     logVerbosity = level;
 };
-module.exports.setFileVerbosity = function (level) {
+module.exports.setFileVerbosity = function(level) {
     logFileVerbosity = level;
 };
-module.exports.getVerbosity = function () {
+module.exports.getVerbosity = function() {
     return logVerbosity;
 };
-module.exports.getFileVerbosity = function () {
+module.exports.getFileVerbosity = function() {
     return logFileVerbosity;
 };
-module.exports.setLightBackgroundColorscheme = function () {
+module.exports.setLightBackgroundColorscheme = function() {
     colorscheme = light_background_colorscheme;
 }
-module.exports.setDarkBackgroundColorscheme = function () {
+module.exports.setDarkBackgroundColorscheme = function() {
     colorscheme = dark_background_colorscheme;
 }
 
@@ -178,7 +178,8 @@ function flushAsync() {
     if (writeShutdown || consoleLog == null || writeQueue.length == 0)
         return;
     writeCounter++;
-    consoleLog.write(writeQueue.shift(), function () { writeCounter--; flushAsync(); });
+    consoleLog.write(writeQueue.shift(), function() { writeCounter--;
+        flushAsync(); });
 };
 
 function flushSync() {
@@ -201,7 +202,7 @@ function start() {
         return;
     writeStarted = true;
     try {
-        console.log = function (message) { print(message); };
+        console.log = function(message) { print(message); };
 
         var timeString = getDateTimeString();
         var fileName = logFolder + "/" + logFileName + ".log";
@@ -221,7 +222,7 @@ function start() {
 
         fs.writeFileSync(fileName, "=== Started " + timeString + " ===" + EOL);
         var file = fs.createWriteStream(fileName, { flags: 'a' });
-        file.on('open', function () {
+        file.on('open', function() {
             if (writeShutdown) {
                 file.close();
                 return;
@@ -229,7 +230,7 @@ function start() {
             consoleLog = file;
             flushAsync();
         });
-        file.on('error', function (err) {
+        file.on('error', function(err) {
             writeError = true;
             consoleLog = null;
             writeCon(colorRed + colorBright, LogLevelEnum.ERROR, err.message);

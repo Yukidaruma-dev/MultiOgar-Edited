@@ -23,10 +23,10 @@ function encode(obj, opt) {
 
     var separator = " = ";
 
-    Object.keys(obj).forEach(function (k, _, __) {
+    Object.keys(obj).forEach(function(k, _, __) {
         var val = obj[k];
         if (val && Array.isArray(val)) {
-            val.forEach(function (item) {
+            val.forEach(function(item) {
                 out += safe(k + "[]") + separator + safe(item) + "\n";
             });
         } else if (val && typeof val === "object") {
@@ -40,7 +40,7 @@ function encode(obj, opt) {
         out = "[" + safe(opt.section) + "]" + eol + out;
     }
 
-    children.forEach(function (k, _, __) {
+    children.forEach(function(k, _, __) {
         var nk = dotSplit(k).join('\\.');
         var section = (opt.section ? opt.section + "." : "") + nk;
         var child = encode(obj[k], {
@@ -59,10 +59,10 @@ function encode(obj, opt) {
 function dotSplit(str) {
     return str.replace(/\1/g, '\u0002LITERAL\\1LITERAL\u0002')
         .replace(/\\\./g, '\u0001')
-        .split(/\./).map(function (part) {
-        return part.replace(/\1/g, '\\.')
+        .split(/\./).map(function(part) {
+            return part.replace(/\1/g, '\\.')
                 .replace(/\2LITERAL\\1LITERAL\2/g, '\u0001');
-    });
+        });
 }
 
 function decode(str) {
@@ -74,7 +74,7 @@ function decode(str) {
         lines = str.split(/[\r\n]+/g),
         section = null;
 
-    lines.forEach(function (line, _, __) {
+    lines.forEach(function(line, _, __) {
         var testLine = line.trim();
 
         // skip empty lines or commented lines
@@ -115,10 +115,12 @@ function decode(str) {
             var strValue = value.slice(11, value.length - 1).trim();
             value = Math.sqrt(parseFloat(strValue) * 100) + 0.5;
         }
+
         function startsWith(value, pattern) {
             return value.length >= pattern.length &&
                 value.indexOf(pattern) === 0;
         };
+
         function endsWith(value, pattern) {
             return value.length >= pattern.length &&
                 value.lastIndexOf(pattern) === value.length - pattern.length;
@@ -137,7 +139,7 @@ function decode(str) {
 
     // {a:{y:1},"a.b":{x:2}} --> {a:{y:1,b:{x:2}}}
     // use a filter to return the keys that have to be deleted.
-    Object.keys(out).filter(function (k, _, __) {
+    Object.keys(out).filter(function(k, _, __) {
         if (!out[k] || typeof out[k] !== "object" || Array.isArray(out[k])) return false;
         // see if the parent section is also an object.
         // if so, add it to that, and mark this one for deletion
@@ -145,7 +147,7 @@ function decode(str) {
             p = out,
             l = parts.pop(),
             nl = l.replace(/\\\./g, '.');
-        parts.forEach(function (part, _, __) {
+        parts.forEach(function(part, _, __) {
             if (!p[part] || typeof p[part] !== "object") {
                 p[part] = {};
             }
@@ -156,7 +158,7 @@ function decode(str) {
         }
         p[nl] = out[k];
         return true;
-    }).forEach(function (del, _, __) {
+    }).forEach(function(del, _, __) {
         delete out[del];
     });
 
@@ -210,7 +212,7 @@ function unsafe(val, doUnesc) {
     return val;
 }
 
-var isInt = function (n) {
+var isInt = function(n) {
     return parseInt(n) == n;
 };
 

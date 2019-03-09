@@ -28,7 +28,7 @@ function PlayerTracker(gameServer, socket) {
     this.tickLeaderboard = 0;
     this.team = 0;
     this.spectate = false;
-    this.freeRoam = false;      // Free-roam mode enables player to move in spectate mode
+    this.freeRoam = false; // Free-roam mode enables player to move in spectate mode
     this.spectateTarget = null; // Spectate target, null for largest player
     this.lastKeypressTick = 0;
 
@@ -135,7 +135,7 @@ PlayerTracker.prototype.joinGame = function(name, skin) {
     if (this.cells.length) return;
 
     if (skin) this.setSkin(skin);
-    if (!name) name = "An unnamed cell";
+    if (!name) name = "";
     this.setName(name);
     this.spectate = false;
     this.freeRoam = false;
@@ -154,8 +154,7 @@ PlayerTracker.prototype.joinGame = function(name, skin) {
         if (this.gameServer.config.serverScrambleLevel < 2) {
             // no scramble / lightweight scramble
             packetHandler.sendPacket(new Packet.SetBorder(this, this.gameServer.border));
-        }
-        else if (this.gameServer.config.serverScrambleLevel == 3) {
+        } else if (this.gameServer.config.serverScrambleLevel == 3) {
             var ran = 10065536 * Math.random();
             // Ruins most known minimaps (no border)
             var border = {
@@ -240,7 +239,8 @@ PlayerTracker.prototype.sendUpdate = function() {
     if (this.gameServer.config.serverScrambleLevel == 2) {
         // scramble (moving border)
         if (!this.borderCounter) {
-            var b = this.gameServer.border, v = this.viewBox;
+            var b = this.gameServer.border,
+                v = this.viewBox;
             var bound = {
                 minx: Math.max(b.minx, v.minx - v.halfWidth),
                 miny: Math.max(b.miny, v.miny - v.halfHeight),
@@ -305,7 +305,8 @@ PlayerTracker.prototype.sendUpdate = function() {
 PlayerTracker.prototype.updateSpecView = function(len) {
     if (!this.spectate || len) {
         // in game
-        var cx = 0, cy = 0;
+        var cx = 0,
+            cy = 0;
         for (var i = 0; i < len; i++) {
             cx += this.cells[i].position.x / len;
             cy += this.cells[i].position.y / len;

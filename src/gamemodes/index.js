@@ -8,7 +8,7 @@ module.exports = {
     HungerGames: require('./HungerGames'),
 };
 
-var get = function (id) {
+var get = function(id) {
     var mode;
     switch (parseInt(id)) {
         case 1: // Teams
@@ -20,10 +20,10 @@ var get = function (id) {
         case 3: // Rainbow
             mode = new module.exports.Rainbow();
             break;
-        case 4:// Tournament
+        case 4: // Tournament
             mode = new module.exports.Tournament();
             break;
-        case 5:// Hunger Games
+        case 5: // Hunger Games
             mode = new module.exports.HungerGames();
             break;
         default: // FFA is default

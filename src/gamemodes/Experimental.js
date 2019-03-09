@@ -21,7 +21,7 @@ Experimental.prototype = new FFA();
 
 // Gamemode Specific Functions
 
-Experimental.prototype.spawnMotherCell = function (gameServer) {
+Experimental.prototype.spawnMotherCell = function(gameServer) {
     // Checks if there are enough mother cells on the map
     if (this.nodesMother.length >= this.motherMinAmount) {
         return;
@@ -34,27 +34,27 @@ Experimental.prototype.spawnMotherCell = function (gameServer) {
 
 // Override
 
-Experimental.prototype.onServerInit = function (gameServer) {
+Experimental.prototype.onServerInit = function(gameServer) {
     // Called when the server starts
     gameServer.run = true;
 
     // Ovveride functions for special virus mechanics
     var self = this;
-    Entity.Virus.prototype.onEat = function (prey) {
+    Entity.Virus.prototype.onEat = function(prey) {
         // Pushes the virus
         this.setBoost(220, prey.boostDirection.angle());
     };
-    Entity.MotherCell.prototype.onAdd = function () {
+    Entity.MotherCell.prototype.onAdd = function() {
         self.nodesMother.push(this);
     };
-    Entity.MotherCell.prototype.onRemove = function () {
+    Entity.MotherCell.prototype.onRemove = function() {
         var index = self.nodesMother.indexOf(this);
         if (index != -1)
             self.nodesMother.splice(index, 1);
     };
 };
 
-Experimental.prototype.onTick = function (gameServer) {
+Experimental.prototype.onTick = function(gameServer) {
     // Mother Cell Spawning
     if ((gameServer.tickCounter % this.motherSpawnInterval) === 0) {
         this.spawnMotherCell(gameServer);
