@@ -71,9 +71,9 @@ PacketHandler.prototype.handshake_onCompleted = function(protocol, key) {
     this.protocol = protocol;
     // Send handshake response
     this.sendPacket(new Packet.ClearAll());
-    this.sendPacket(new Packet.SetBorder(this.socket.playerTracker, this.gameServer.border, this.gameServer.config.serverGamemode, "MultiOgar-Edited " + this.gameServer.version));
+    this.sendPacket(new Packet.SetBorder(this.socket.playerTracker, this.gameServer.border, this.gameServer.config.serverGamemode, "TripleOgar " + this.gameServer.version));
     // Send welcome message
-    this.gameServer.sendChatMessage(null, this.socket.playerTracker, "MultiOgar-Edited " + this.gameServer.version);
+    this.gameServer.sendChatMessage(null, this.socket.playerTracker, "TripleOgar " + this.gameServer.version);
     if (this.gameServer.config.serverWelcome1)
         this.gameServer.sendChatMessage(null, this.socket.playerTracker, this.gameServer.config.serverWelcome1);
     if (this.gameServer.config.serverWelcome2)

@@ -40,4 +40,4 @@ src/.readwarning
 src/ipbanlist.txt
 
 # Prevent user settings overwrite
-#src/gameserver.ini
+src/gameserver.ini

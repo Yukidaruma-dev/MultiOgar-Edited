@@ -8,7 +8,7 @@ pause() {
 
 cd $(dirname $0) # cd scr dir
 if [ ! "$(id -u)" = 0 ] && [ ! -f ".readwarning" ]; then
-		echo "WARNING: MultiOgar-Edited uses privileged ports by default, which may" \
+		echo "WARNING: TripleOgar uses privileged ports by default, which may" \
 		    "cause an error. Please either change the ports in the config" \
 		    "file (gameserver.ini) to two different ports above 1024, or run" \
 		    "this script as root. This warning will only be shown once, unless" \

@@ -52,7 +52,7 @@ function GameServer() {
 
         /** SERVER **/
         serverTimeout: 300, // Seconds to keep connection alive for non-responding client
-        serverWsModule: 'ws', // WebSocket module: 'ws' or 'uws' (install npm package before using uws)
+        serverWsModule: 'uws', // WebSocket module: 'uws'
         serverMaxConnections: 500, // Maximum number of connections to the server. (0 for no limit)
         serverPort: 443, // Server port which will be used to listen for incoming connections
         serverBind: '0.0.0.0', // Server network interface which will be used to listen for incoming connections (0.0.0.0 for all IPv4 interfaces)

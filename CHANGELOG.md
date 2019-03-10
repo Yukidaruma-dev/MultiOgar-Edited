@@ -1,4 +1,8 @@
 # Changelog
+#### 1.7.1:
+* Changed some code(I forgot it. :/);
+
+-------------
 #### 1.7.0:
 * Fixed some code;
 * Deleted some code;
