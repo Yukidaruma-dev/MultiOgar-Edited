@@ -46,7 +46,7 @@ node index.js
 ## Linux:
 
 Install node.js:
-![Node.js Package Manager]https://nodejs.org/ja/download/package-manager/
+[Node.js Package Manager](https://nodejs.org/ja/download/package-manager/)
 ```bash
 # First update your packages:
 sudo apt update
